@@ -3,6 +3,8 @@ import { StyleSheet, View, FlatList, Button } from "react-native"
 import GoalInput from "./GoalInput"
 import GoalItem from "./GoalItem"
 
+import { NativeRouter, Route, Link } from "react-router-native"
+
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState("")
   const [courseGoals, setCourseGoals] = useState([])
@@ -34,23 +36,32 @@ export default function App() {
     setIsVisible(false)
   }
   return (
-    <View style={styles.appContainer}>
-      <Button title='Add New Goal' color='#5e0acc' onPress={start} />
-      <GoalInput
-        goalInputHandler={goalInputHandler}
-        addGoalHandler={addGoalHandler}
-        isVisible={isVisible}
-        end={end}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={courseGoals}
-          renderItem={(itemData) => {
-            return <GoalItem itemData={itemData} handlePress={handlePress} />
-          }}
+    <NativeRouter>
+      <View style={styles.appContainer}>
+        <Button title='Add New Goal' color='#5e0acc' onPress={start} />
+        <GoalInput
+          goalInputHandler={goalInputHandler}
+          addGoalHandler={addGoalHandler}
+          isVisible={isVisible}
+          end={end}
         />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={courseGoals}
+            renderItem={(itemData) => {
+              return <GoalItem itemData={itemData} handlePress={handlePress} />
+            }}
+          />
+        </View>
+        {/* some router just for reference  */}
+        {/* <Route exact path='/' component={GoalInput} />
+        <Route path='/goalitem' component={GoalItem} /> */}
+
+        {/* npm install react-router-native */}
+        {/* npm i @ungap/url-search-params */}
+        {/* npm i @remix-run/router */}
       </View>
-    </View>
+    </NativeRouter>
   )
 }
 
